@@ -10,15 +10,15 @@ extension ToPermissionEnum on String {
       case 'Name':
         return user.name;
       case 'Email':
-        return user.name;
+        return user.email;
       case 'Phone number':
-        return user.name;
+        return user.phone;
       case 'Branch':
-        return user.name;
+        return user.branch;
       case 'Account':
-        return user.name;
+        return user.account;
       case 'Age':
-        return user.name;
+        return user.age;
       default:
         return '';
     }

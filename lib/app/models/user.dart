@@ -1,5 +1,29 @@
 import 'package:equatable/equatable.dart';
 
+class UserAndLastModel extends Equatable {
+  final int lastPage;
+  final int total;
+  final List<UserModel> users;
+
+  const UserAndLastModel({
+    required this.total,
+    required this.lastPage,
+    required this.users,
+  });
+
+  factory UserAndLastModel.fromJson(Map<String, dynamic> json) {
+    return UserAndLastModel(
+      lastPage: json['last_page'],
+      total: json['total'],
+      users:  (json['data'] as List).map((e) => UserModel.fromJson(e)).toList(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        lastPage
+      ];
+}
 class UserModel extends Equatable {
   final int id;
   final String name;

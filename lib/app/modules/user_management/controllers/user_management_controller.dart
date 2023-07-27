@@ -47,7 +47,7 @@ class UserManagementController extends GetxController {
     'Age',
   ];
 
-  final users = <UserModel>[].obs;
+  final item = Rx<UserAndLastModel?>(null);
 
   final loading = false.obs;
   final page = 1.obs;
@@ -55,20 +55,9 @@ class UserManagementController extends GetxController {
   Future<void> getUsers() async {
     try {
       loading.value = true;
-
-      users.assignAll(
-        await service.getUsers(
-          page: page.value,
-        ),
-      );
-      users.addAll(
-        await service.getUsers(
-          page: page.value,
-        ),
-      );users.addAll(
-        await service.getUsers(
-          page: page.value,
-        ),
+      item.value = null;
+      item.value = await service.getUsers(
+        page: page.value,
       );
     } catch (e, st) {
       log(e.toString());
@@ -83,5 +72,11 @@ class UserManagementController extends GetxController {
   void onInit() {
     getUsers();
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    ever(page, (callback) async=> await getUsers(),);
+    super.onReady();
   }
 }

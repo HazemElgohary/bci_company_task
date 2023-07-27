@@ -5,7 +5,7 @@ import 'package:bci_company_task/app/helpers/end_points.dart';
 import 'package:bci_company_task/app/models/user.dart';
 
 class UserService {
-  Future<List<UserModel>> getUsers({
+  Future<UserAndLastModel> getUsers({
     required int page,
   }) async {
     final res = await Api.get(
@@ -18,10 +18,6 @@ class UserService {
       throw res.data['details'] ?? res.data;
     }
 
-    return (res.data['users']['data'] as List)
-        .map(
-          (e) => UserModel.fromJson(e),
-        )
-        .toList();
+    return UserAndLastModel.fromJson(res.data['users']);
   }
 }
