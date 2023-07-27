@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppColors {
   static Color primary = const Color(0xFFFAFAFA);
   static Color second = const Color(0xFFF0F0F0);
-  static Color third = const Color(0xFF2A2A4E);
+  static Color buttonColor = const Color(0xFFEAEAEA);
   static Color loadingColor = const Color(0xFFAC2F2F);
   static Color cardColor = const Color(0xFFF7F7F9);
   static Color borderColor = const Color(0xFFD0D0D0);
@@ -46,7 +46,7 @@ ThemeData buildTheme(BuildContext context) {
           fontSize: 17,
           fontWeight: FontWeight.w700),
       centerTitle: true,
-      iconTheme: IconThemeData(color: AppColors.third, size: 30),
+      iconTheme: IconThemeData(color: AppColors.second, size: 30),
     ),
     dividerColor: Colors.transparent,
     radioTheme: RadioThemeData(

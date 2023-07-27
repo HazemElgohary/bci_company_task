@@ -1,5 +1,6 @@
 
 
+import 'package:bci_company_task/app/service/users.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,4 +47,8 @@ Future<void> inject() async {
       compact: true,
       maxWidth: 90));
   Get.put(DioWrapper(dio), permanent: true);
+
+
+  /// services
+  Get.put(UserService(),);
 }

@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:bci_company_task/app/models/drawer_item.dart';
+import 'package:bci_company_task/app/models/user.dart';
+import 'package:bci_company_task/app/service/users.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserManagementController extends GetxController {
-  final drawerItems = <DrawerItemModel>[
+  final service = Get.find<UserService>();
+  final drawerItems = const <DrawerItemModel>[
     DrawerItemModel(
       icon: Icons.bar_chart_sharp,
       text: 'Report',
@@ -33,4 +38,50 @@ class UserManagementController extends GetxController {
       text: 'Settings',
     ),
   ];
+  final tableList = const <String>[
+    'Name',
+    'Email',
+    'Phone number',
+    'Branch',
+    'Account',
+    'Age',
+  ];
+
+  final users = <UserModel>[].obs;
+
+  final loading = false.obs;
+  final page = 1.obs;
+
+  Future<void> getUsers() async {
+    try {
+      loading.value = true;
+
+      users.assignAll(
+        await service.getUsers(
+          page: page.value,
+        ),
+      );
+      users.addAll(
+        await service.getUsers(
+          page: page.value,
+        ),
+      );users.addAll(
+        await service.getUsers(
+          page: page.value,
+        ),
+      );
+    } catch (e, st) {
+      log(e.toString());
+      log(st.toString());
+      Get.snackbar('error', e.toString());
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  @override
+  void onInit() {
+    getUsers();
+    super.onInit();
+  }
 }

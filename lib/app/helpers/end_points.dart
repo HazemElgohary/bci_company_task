@@ -1,6 +1,8 @@
 class EndPoints {
-  static const base = '';
+  static const base = 'https://bci.net.sa';
 
-  static const baseUrl = '';
+  static const baseUrl = '$base/api/';
 
+  /// Get
+  static const showUser = 'show_users';
 }
