@@ -16,6 +16,7 @@ Future<void> main() async{
   await inject();
   runApp(
     DevicePreview(
+      enabled: false,
       builder: (BuildContext context) =>GetMaterialApp(
         title: "BCI task",
         scrollBehavior: const MaterialScrollBehavior().copyWith(

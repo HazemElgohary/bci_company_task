@@ -91,6 +91,7 @@ class CreateUserView extends GetView<CreateUserController> {
                                 DefaultFormField(
                                   controller: controller.ageController,
                                   label: 'Age',
+                                  isNumber: true,
                                   isLarge: true,
                                 ),
                                 DefaultFormField(
@@ -230,6 +231,7 @@ class CreateUserView extends GetView<CreateUserController> {
                             DefaultFormField(
                               controller: controller.ageController,
                               label: 'Age',
+                              isNumber: true,
                             ),
                             DefaultFormField(
                               controller: controller.addressController,

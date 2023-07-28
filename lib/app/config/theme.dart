@@ -51,9 +51,9 @@ ThemeData buildTheme(BuildContext context) {
     dividerColor: Colors.transparent,
     radioTheme: RadioThemeData(
         fillColor: MaterialStateColor.resolveWith((states) => Colors.black)),
-    indicatorColor: AppColors.whiteColor,
+    indicatorColor: Colors.lightBlueAccent,
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: AppColors.whiteColor,
+      color: Colors.lightBlueAccent,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(elevation: 0),
   );
