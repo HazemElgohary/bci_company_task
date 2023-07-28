@@ -6,7 +6,7 @@ import 'package:bci_company_task/app/config/widgets/pagination_item.dart';
 import 'package:bci_company_task/app/config/widgets/resposive_layout.dart';
 import 'package:bci_company_task/app/config/widgets/user_row_item.dart';
 import 'package:bci_company_task/app/models/user.dart';
-import 'package:bci_company_task/app/models/user.dart';
+import 'package:bci_company_task/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -35,7 +35,9 @@ class UserManagementView extends GetView<UserManagementController> {
                 children: [
                   const UserAppBar(),
                   DefaultButton(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.CREATE_USER);
+                    },
                   ),
                   Expanded(
                     child: Padding(
@@ -81,6 +83,10 @@ class UserManagementView extends GetView<UserManagementController> {
                                                                   .centerStart,
                                                           child: Text(
                                                             e,
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                             style: context
                                                                 .textTheme
                                                                 .titleLarge!
@@ -180,12 +186,12 @@ class UserManagementView extends GetView<UserManagementController> {
                                       },
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Obx(
-                                        () => SecondPaginationItem(
+                                    () => SecondPaginationItem(
                                       page: controller.page.value,
                                       last:
-                                      controller.item.value?.lastPage ?? 0,
+                                          controller.item.value?.lastPage ?? 0,
                                       onProgress: () {
                                         controller.page.value++;
                                       },
@@ -205,11 +211,145 @@ class UserManagementView extends GetView<UserManagementController> {
           ],
         ),
       ),
-      smallLayout: const Scaffold(
-        body: Column(
-          children: [
-            Text('small'),
-          ],
+      smallLayout: Scaffold(
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const UserAppBar(isPhone: true),
+              DefaultButton(
+                onTap: () {
+                  Get.toNamed(Routes.CREATE_USER);
+                },
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(color: AppColors.borderColor),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Obx(
+                              () => controller.loading.value
+                                  ? const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive())
+                                  : Table(
+                                      children: [
+                                        TableRow(
+                                          decoration: BoxDecoration(
+                                            color: AppColors.primary,
+                                          ),
+                                          children: controller.tableList
+                                              .map(
+                                                (e) => Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(8, 0, 0, 0),
+                                                  child: SizedBox(
+                                                    height: 40,
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional
+                                                              .centerStart,
+                                                      child: Text(
+                                                        e,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: context.textTheme
+                                                            .titleLarge!
+                                                            .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                        ...(controller.item.value?.users ??
+                                                <UserModel>[])
+                                            .map(
+                                              (element) => TableRow(
+                                                decoration: BoxDecoration(
+                                                  color: (controller.item.value
+                                                                  ?.users ??
+                                                              <UserModel>[])
+                                                          .indexOf(element)
+                                                          .isEven
+                                                      ? null
+                                                      : AppColors.primary,
+                                                ),
+                                                children:
+                                                    controller.tableList.map(
+                                                  (e) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                        8,
+                                                        0,
+                                                        0,
+                                                        0,
+                                                      ),
+                                                      child: UserRowItem(
+                                                          user: element,
+                                                          text: e),
+                                                    );
+                                                  },
+                                                ).toList(),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Obx(
+                                () => PaginationItem(
+                                  page: controller.page.value,
+                                  last: controller.item.value?.lastPage ?? 0,
+                                  onBack: () {
+                                    controller.page.value--;
+                                  },
+                                  onProgress: () {
+                                    controller.page.value++;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        drawer: CustomDrawer(
+          items: controller.drawerItems,
         ),
       ),
     );

@@ -5,4 +5,5 @@ class EndPoints {
 
   /// Get
   static const showUser = 'show_users';
+  static const addUser = 'add_user';
 }
