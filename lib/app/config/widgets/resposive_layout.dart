@@ -22,21 +22,21 @@ class ResponsiveLayout extends StatelessWidget {
   }) : super(key: key);
 
   static bool isSmallLayout(BuildContext context) {
-    return MediaQuery.of(context).size.width < mediumLayoutSize;
+    return MediaQuery.sizeOf(context).width < mediumLayoutSize;
   }
 
   static bool isMediumLayout(BuildContext context) {
-    return MediaQuery.of(context).size.width >= mediumLayoutSize &&
-        MediaQuery.of(context).size.width < largeLayoutSize;
+    return MediaQuery.sizeOf(context).width >= mediumLayoutSize &&
+        MediaQuery.sizeOf(context).width < largeLayoutSize;
   }
 
   static bool isLargeLayout(BuildContext context) {
-    return MediaQuery.of(context).size.width > largeLayoutSize;
+    return MediaQuery.sizeOf(context).width > largeLayoutSize;
   }
 
   static bool isCustomSize(BuildContext context) {
-    return MediaQuery.of(context).size.width <= customLayoutSize &&
-        MediaQuery.of(context).size.width >= mediumLayoutSize;
+    return MediaQuery.sizeOf(context).width <= customLayoutSize &&
+        MediaQuery.sizeOf(context).width >= mediumLayoutSize;
   }
 
   @override
